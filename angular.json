@@ -19,6 +19,7 @@
 					"options": {},
 					"configurations": {
 						"production": {
+							"aot": true,
 							"target": "remote:esbuild:production"
 						},
 						"development": {
@@ -138,14 +139,20 @@
 			"architect": {
 				"build": {
 					"builder": "@angular-architects/native-federation:build",
-					"options": {},
+					"options": {
+						"ssr": true
+					},
 					"configurations": {
 						"production": {
+							"aot": true,
+							"prerender": true,
 							"target": "shell:esbuild:production"
 						},
 						"development": {
 							"target": "shell:esbuild:development",
-							"dev": true
+							"dev": true,
+							"aot": true,
+							"prerender": true
 						}
 					},
 					"defaultConfiguration": "production"
@@ -204,7 +211,12 @@
 						"styles": [
 							"projects/shell/src/styles.scss"
 						],
-						"scripts": []
+						"scripts": [],
+						"server": "projects/shell/src/main.server.ts",
+						"prerender": false,
+						"ssr": {
+							"entry": "projects/shell/src/server.ts"
+						}
 					},
 					"configurations": {
 						"production": {
